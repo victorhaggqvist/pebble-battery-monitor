@@ -21,4 +21,6 @@ build
 *.exe
 *.out
 *.app
+
+*.png
 >>>>>>> edd9e6670a145e3f41f34c4c6c1cfee44f61a2c7
