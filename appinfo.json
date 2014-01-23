@@ -1,0 +1,17 @@
+{
+  "uuid": "20146c38-3e2d-4f45-8f28-112961c0e2f4",
+  "shortName": "Battery",
+  "longName": "Battery Monitor",
+  "companyName": "Snilius",
+  "versionCode": 1,
+  "versionLabel": "1.0.0",
+  "watchapp": {
+    "watchface": false
+  },
+  "appKeys": {
+    "dummy": 0
+  },
+  "resources": {
+    "media": []
+  }
+}
