@@ -1,5 +1,4 @@
 #include <pebble.h>
-//#include <pebble_fonts.h>
 
 static Window *window;
 static TextLayer *battery_percentage;
