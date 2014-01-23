@@ -1,3 +1,24 @@
+<<<<<<< HEAD
 
 # Ignore build generated files
 build
+=======
+# Object files
+*.o
+*.ko
+
+# Libraries
+*.lib
+*.a
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+>>>>>>> edd9e6670a145e3f41f34c4c6c1cfee44f61a2c7
