@@ -1,5 +1,5 @@
 #include <pebble.h>
-#include <inttypes.h>
+//#include <pebble_fonts.h>
 
 static Window *window;
 static TextLayer *battery_percentage;
@@ -24,8 +24,9 @@ static void window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds = layer_get_bounds(window_layer);
   
-  battery_percentage = text_layer_create((GRect) { .origin = { 0, 52 }, .size = { bounds.size.w, 20 } });
+  battery_percentage = text_layer_create((GRect) { .origin = { 0, 32 }, .size = { bounds.size.w, 45 } });
   text_layer_set_text_alignment(battery_percentage, GTextAlignmentCenter);
+  text_layer_set_font(battery_percentage, fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD));
   
   charge_status = text_layer_create((GRect) { .origin = { 0, 82 }, .size = { bounds.size.w, 20 } });
   text_layer_set_text_alignment(charge_status, GTextAlignmentCenter);
