@@ -1,5 +1,6 @@
 language: c
 before_install:
+  - PROJECT_PATH=~/victorhaggqvist/pebble-battery-monitor
   - PEBBLE_SDK=PebbleSDK-2.2
   - echo 'Installing Pebble SDK Dependencies...'
   - echo 'SDK ${PEBBLE_SDK}'
@@ -21,5 +22,5 @@ before_install:
   - tar -zxf ~/arm-cs-tools-ubuntu-universal.tar.gz
   - export PATH=~/pebble-dev/PebbleSDK-${PEBBLE_SDK}/bin:$PATH
 
-script: "./build.sh"
+script: '${PROJECT_PATH}/build.sh'
 
