@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
+PEBBLE_SDK=PebbleSDK-2.2
 echo 'Installing Pebble SDK Dependencies...'
-
+echo 'SDK ${PEBBLE_SDK}'
 cd ~ 
 
 # Get the Pebble SDK and toolchain
