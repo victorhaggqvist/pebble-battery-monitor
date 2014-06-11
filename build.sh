@@ -1,5 +1,5 @@
 echo "Building Pebble project..."
 
-cd $PEBBLE_PROJECT_PATH
+cd ~/victorhaggqvist/pebble-battery-monitor
 
 pebble build
