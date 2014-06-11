@@ -22,6 +22,14 @@ before_install:
   - tar -zxf ~/arm-cs-tools-ubuntu-universal.tar.gz
   - export PATH=~/pebble-dev/${PEBBLE_SDK}/bin:$PATH
 
+# python stuff
+  - sudo apt-get install python-pip python2.7-dev
+  - sudo pip install virtualenv
+  - virtualenv --no-site-packages .env
+  - source .env/bin/activate
+  - pip install -r ~/pebble-dev/PebbleSDK-2.2/requirements.txt
+  - deactivate
+
 script:
   - echo "Building Pebble project..."
   - cd ${PROJECT_PATH}
