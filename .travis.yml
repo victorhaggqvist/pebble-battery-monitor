@@ -1,5 +1,7 @@
 language: c
 before_install:
+  - pwd
+  - tree
   - PROJECT_PATH=~/victorhaggqvist/pebble-battery-monitor
   - PEBBLE_SDK=PebbleSDK-2.2
   - echo 'Installing Pebble SDK Dependencies...'
