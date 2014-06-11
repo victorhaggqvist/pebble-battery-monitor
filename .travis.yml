@@ -22,5 +22,8 @@ before_install:
   - tar -zxf ~/arm-cs-tools-ubuntu-universal.tar.gz
   - export PATH=~/pebble-dev/PebbleSDK-${PEBBLE_SDK}/bin:$PATH
 
-script: '${PROJECT_PATH}/build.sh'
+script:
+  - echo "Building Pebble project..."
+  - cd ${PROJECT_PATH}
+  - pebble build
 
