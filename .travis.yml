@@ -20,7 +20,7 @@ before_install:
 
 # Extract the toolchain
   - tar -zxf ~/arm-cs-tools-ubuntu-universal.tar.gz
-  - export PATH=~/pebble-dev/PebbleSDK-${PEBBLE_SDK}/bin:$PATH
+  - export PATH=~/pebble-dev/${PEBBLE_SDK}/bin:$PATH
 
 script:
   - echo "Building Pebble project..."
