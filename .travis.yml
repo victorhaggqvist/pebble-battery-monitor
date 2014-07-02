@@ -1,37 +1,20 @@
-language: c
-before_install:
-  - PROJECT_PATH=$(pwd)
-  - PEBBLE_SDK=PebbleSDK-2.2
-  - echo 'Installing Pebble SDK Dependencies...'
-  - echo 'SDK ${PEBBLE_SDK}'
-  - cd ~ 
-
-# Get the Pebble SDK and toolchain
-  - wget http://dump.victorhaggqvist.com/${PEBBLE_SDK}.tar.gz -O PebbleSDK.tar.gz #cuz need to login to download from pebble..
-  - wget http://assets.getpebble.com.s3-website-us-east-1.amazonaws.com/sdk/arm-cs-tools-ubuntu-universal.tar.gz
-
-# Build the Pebble directory
-  - mkdir ~/pebble-dev
-  - cd ~/pebble-dev
-  
-# Extract the SDK
-  - tar -zxf ~/PebbleSDK.tar.gz
-  - cd ~/pebble-dev/${PEBBLE_SDK}
-
-# Extract the toolchain
-  - tar -zxf ~/arm-cs-tools-ubuntu-universal.tar.gz
-  - export PATH=~/pebble-dev/${PEBBLE_SDK}/bin:$PATH
-
-# python stuff
-  - sudo apt-get install python-pip python2.7-dev
-  - sudo pip install virtualenv
-  - virtualenv --no-site-packages .env
-  - source .env/bin/activate
-  - pip install -r ~/pebble-dev/PebbleSDK-2.2/requirements.txt
-  - deactivate
+# Test
+language: python
 
 script:
-  - echo "Building Pebble project..."
-  - cd ${PROJECT_PATH}
-  - pebble build
+- pebble-dev/${PEBBLE_SDK}/bin/pebble build
+
+before_install:
+- wget http://assets.getpebble.com.s3-website-us-east-1.amazonaws.com/sdk2/${PEBBLE_SDK}.tar.gz -O PebbleSDK.tar.gz
+- wget http://assets.getpebble.com.s3-website-us-east-1.amazonaws.com/sdk/arm-cs-tools-ubuntu-universal.tar.gz
+- mkdir pebble-dev
+- tar -zxf PebbleSDK.tar.gz -C pebble-dev
+- tar -zxf arm-cs-tools-ubuntu-universal.tar.gz -C pebble-dev/${PEBBLE_SDK}
+
+install:
+- "pip install -r pebble-dev/${PEBBLE_SDK}/requirements.txt"
+
+env:
+  global:
+  - PEBBLE_SDK=PebbleSDK-2.3
 
