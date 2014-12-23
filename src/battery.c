@@ -1,5 +1,7 @@
 #include <pebble.h>
 
+#define TEXT_HIDDEN_KEY 1
+
 static Window *window;
 static TextLayer *battery_percentage;
 static TextLayer *charge_status;
@@ -11,12 +13,30 @@ static void battery_state_receiver(BatteryChargeState chargeState){
   snprintf(percent_show, 5, "%d%%", percent);
   text_layer_set_text(battery_percentage, percent_show);
 
-  if(chargeState.is_plugged && chargeState.is_charging)
-    text_layer_set_text(charge_status, "Charging");
-  else if(chargeState.is_plugged && !chargeState.is_charging)
-    text_layer_set_text(charge_status, "Plugged - Not Charging");
-  else if(!chargeState.is_plugged && !chargeState.is_charging)
-    text_layer_set_text(charge_status, "Discharging");
+  if (!persist_read_bool(TEXT_HIDDEN_KEY)) {
+    if(chargeState.is_plugged && chargeState.is_charging)
+      text_layer_set_text(charge_status, "Charging");
+    else if(chargeState.is_plugged && !chargeState.is_charging)
+      text_layer_set_text(charge_status, "Plugged - Not Charging");
+    else if(!chargeState.is_plugged && !chargeState.is_charging)
+      text_layer_set_text(charge_status, "Discharging");
+  }
+}
+
+void click_handler(ClickRecognizerRef recognizer, void *context) {
+  // APP_LOG(APP_LOG_LEVEL_DEBUG, "Single Click");
+
+  if (persist_read_bool(TEXT_HIDDEN_KEY)) {
+    persist_write_bool(TEXT_HIDDEN_KEY, false);
+    battery_state_receiver(battery_state_service_peek());
+  } else {
+    persist_write_bool(TEXT_HIDDEN_KEY, true);
+    text_layer_set_text(charge_status, "");
+  }
+}
+
+void click_config_provider(void *context) {
+  window_single_click_subscribe(BUTTON_ID_SELECT, click_handler);
 }
 
 static void window_load(Window *window) {
@@ -51,6 +71,8 @@ static void init(void) {
   const bool animated = true;
   window_stack_push(window, animated);
   battery_state_service_subscribe(battery_state_receiver);
+
+  window_set_click_config_provider(window, click_config_provider);
 }
 
 static void deinit(void) {
@@ -60,7 +82,7 @@ static void deinit(void) {
 int main(void) {
   init();
 
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "Done initializing, pushed window: %p", window);
+  // APP_LOG(APP_LOG_LEVEL_DEBUG, "Done initializing, pushed window: %p", window);
 
   app_event_loop();
   deinit();

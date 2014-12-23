@@ -3,8 +3,8 @@
   "shortName": "Battery",
   "longName": "Battery Monitor",
   "companyName": "Snilius",
-  "versionCode": 2,
-  "versionLabel": "1.1.0",
+  "versionCode": 3,
+  "versionLabel": "1.2",
   "watchapp": {
     "watchface": false
   },
