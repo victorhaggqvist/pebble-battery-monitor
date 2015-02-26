@@ -11,12 +11,17 @@
   "appKeys": {},
   "resources": {
     "media": [
-            {
-	      "type": "png",
-              "file": "icon.png",
-              "menuIcon": true,
-              "name": "ICON"
-            }
+      {
+        "type": "png",
+        "file": "icon.png",
+        "menuIcon": true,
+        "name": "ICON"
+      }
     ]
-  }
+  },
+  "targetPlatforms": [
+    "aplite",
+    "basalt"
+  ],
+  "sdkVersion": "3"
 }
