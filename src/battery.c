@@ -1,4 +1,4 @@
-#include <pebble.h>
+#include "pebble.h"
 
 #define TEXT_HIDDEN_KEY 1
 
@@ -21,6 +21,17 @@ void battery_state_receiver(BatteryChargeState chargeState){
     else if(!chargeState.is_plugged && !chargeState.is_charging)
       text_layer_set_text(charge_status, "Discharging");
   }
+
+#ifdef PBL_COLOR
+
+  if (percent > 40) {
+    window_set_background_color(window, GColorDarkGreen);
+  } else if(percent <=40 && percent > 20) {
+    window_set_background_color(window, GColorChromeYellow);
+  } else if(percent <= 20) {
+    window_set_background_color(window, GColorDarkCandyAppleRed);
+  }
+#endif
 }
 
 void click_handler(ClickRecognizerRef recognizer, void *context) {
@@ -46,9 +57,11 @@ void window_load(Window *window) {
   battery_percentage = text_layer_create((GRect) { .origin = { 0, 32 }, .size = { bounds.size.w, 45 } });
   text_layer_set_text_alignment(battery_percentage, GTextAlignmentCenter);
   text_layer_set_font(battery_percentage, fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD));
+  text_layer_set_background_color(battery_percentage, GColorClear);
 
   charge_status = text_layer_create((GRect) { .origin = { 0, 82 }, .size = { bounds.size.w, 20 } });
   text_layer_set_text_alignment(charge_status, GTextAlignmentCenter);
+  text_layer_set_background_color(charge_status, GColorClear);
 
   // make a peek to start
   battery_state_receiver(battery_state_service_peek());
