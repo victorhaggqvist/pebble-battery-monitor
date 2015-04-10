@@ -2,12 +2,12 @@
 
 #define TEXT_HIDDEN_KEY 1
 
-static Window *window;
-static TextLayer *battery_percentage;
-static TextLayer *charge_status;
-static char percent_show[5];
+Window *window;
+TextLayer *battery_percentage;
+TextLayer *charge_status;
+char percent_show[5];
 
-static void battery_state_receiver(BatteryChargeState chargeState){
+void battery_state_receiver(BatteryChargeState chargeState){
   uint8_t percent = chargeState.charge_percent;
 
   snprintf(percent_show, 5, "%d%%", percent);
@@ -39,7 +39,7 @@ void click_config_provider(void *context) {
   window_single_click_subscribe(BUTTON_ID_SELECT, click_handler);
 }
 
-static void window_load(Window *window) {
+void window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds = layer_get_bounds(window_layer);
 
@@ -57,12 +57,12 @@ static void window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(charge_status));
 }
 
-static void window_unload(Window *window) {
+void window_unload(Window *window) {
   text_layer_destroy(battery_percentage);
   text_layer_destroy(charge_status);
 }
 
-static void init(void) {
+void init(void) {
   window = window_create();
   window_set_window_handlers(window, (WindowHandlers) {
     .load = window_load,
@@ -75,7 +75,7 @@ static void init(void) {
   window_set_click_config_provider(window, click_config_provider);
 }
 
-static void deinit(void) {
+void deinit(void) {
   window_destroy(window);
 }
 
