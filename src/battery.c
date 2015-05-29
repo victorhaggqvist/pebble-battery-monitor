@@ -1,6 +1,8 @@
 #include "pebble.h"
 
 #define TEXT_HIDDEN_KEY 1
+#define ENABLE_COLOR_KEY 2
+//#define PBL_COLOR
 
 Window *window;
 TextLayer *battery_percentage;
@@ -23,6 +25,12 @@ void battery_state_receiver(BatteryChargeState chargeState){
   }
 
 #ifdef PBL_COLOR
+//  if (persist_read_bool(ENABLE_COLOR_KEY)) {
+//    APP_LOG(APP_LOG_LEVEL_DEBUG, "No color setting");
+//    return;
+//  }
+
+
 
   if (percent > 40) {
     window_set_background_color(window, GColorDarkGreen);
@@ -46,8 +54,23 @@ void click_handler(ClickRecognizerRef recognizer, void *context) {
   }
 }
 
+void long_click_handler(ClickRecognizerRef recognizer, void *context) {
+
+  if (persist_read_bool(ENABLE_COLOR_KEY)) {
+    persist_write_bool(ENABLE_COLOR_KEY, false);
+    battery_state_receiver(battery_state_service_peek());
+  } else {
+    persist_write_bool(ENABLE_COLOR_KEY, true);
+    battery_state_receiver(battery_state_service_peek());
+  }
+
+}
+
 void click_config_provider(void *context) {
   window_single_click_subscribe(BUTTON_ID_SELECT, click_handler);
+//#ifdef PBL_COLOR
+//  window_long_click_subscribe(BUTTON_ID_SELECT, 0, long_click_handler, NULL);
+// #endif
 }
 
 void window_load(Window *window) {
