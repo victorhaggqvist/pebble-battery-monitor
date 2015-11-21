@@ -1,6 +1,9 @@
 # Test
 language: python
 
+python:
+  - "2.7"
+
 script:
 - pebble-dev/${PEBBLE_SDK}/bin/pebble build
 
@@ -11,10 +14,14 @@ before_install:
 - tar -zxf PebbleSDK.tar.gz -C pebble-dev
 - tar -zxf arm-cs-tools-ubuntu-universal.tar.gz -C pebble-dev/${PEBBLE_SDK}
 
+# notice we don't create a virtualenv, travis to that be default already
 install:
+- pip install --upgrade pip # just to future proof, since travis seem to hang behind
+- pip install --install-option="--no-cython-compile" cython
 - "pip install -r pebble-dev/${PEBBLE_SDK}/requirements.txt"
+- touch pebble-dev/NO_TRACKING
 
 env:
   global:
-  - PEBBLE_SDK=PebbleSDK-2.8.1
+  - PEBBLE_SDK=PebbleSDK-3.6.2
 
