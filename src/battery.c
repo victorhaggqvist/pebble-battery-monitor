@@ -79,6 +79,8 @@ void window_load(Window *window) {
 
 #ifdef PBL_ROUND
   battery_percentage = text_layer_create((GRect) { .origin = { 0, 55 }, .size = { bounds.size.w, 45 } });
+#elif PBL_COLOR
+  battery_percentage = text_layer_create((GRect) { .origin = { 0, 45 }, .size = { bounds.size.w, 45 } });
 #else
   battery_percentage = text_layer_create((GRect) { .origin = { 0, 32 }, .size = { bounds.size.w, 45 } });
 #endif
@@ -88,6 +90,8 @@ void window_load(Window *window) {
 
 #ifdef PBL_ROUND
   charge_status = text_layer_create((GRect) { .origin = { 0, 102 }, .size = { bounds.size.w, 20 } });
+#elif PBL_COLOR
+  charge_status = text_layer_create((GRect) { .origin = { 0, 92 }, .size = { bounds.size.w, 20 } });
 #else
   charge_status = text_layer_create((GRect) { .origin = { 0, 82 }, .size = { bounds.size.w, 20 } });
 #endif
