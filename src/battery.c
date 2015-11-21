@@ -77,12 +77,20 @@ void window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds = layer_get_bounds(window_layer);
 
+#ifdef PBL_ROUND
+  battery_percentage = text_layer_create((GRect) { .origin = { 0, 55 }, .size = { bounds.size.w, 45 } });
+#else
   battery_percentage = text_layer_create((GRect) { .origin = { 0, 32 }, .size = { bounds.size.w, 45 } });
+#endif
   text_layer_set_text_alignment(battery_percentage, GTextAlignmentCenter);
   text_layer_set_font(battery_percentage, fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD));
   text_layer_set_background_color(battery_percentage, GColorClear);
 
+#ifdef PBL_ROUND
+  charge_status = text_layer_create((GRect) { .origin = { 0, 102 }, .size = { bounds.size.w, 20 } });
+#else
   charge_status = text_layer_create((GRect) { .origin = { 0, 82 }, .size = { bounds.size.w, 20 } });
+#endif
   text_layer_set_text_alignment(charge_status, GTextAlignmentCenter);
   text_layer_set_background_color(charge_status, GColorClear);
 
